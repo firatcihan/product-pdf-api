@@ -41,7 +41,6 @@ export class AuthService {
       email,
       password: hashedPassword,
       name,
-      realmId: new Types.ObjectId(), // Default realm for now
     });
 
     await newUser.save();

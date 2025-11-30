@@ -235,7 +235,7 @@ src/
 │   │   └── user.entity.ts            # User MongoDB schema
 │   └── user.module.ts
 ├── common/
-│   └── common.entity.ts              # Base entity (timestamps, realmId)
+│   └── common.entity.ts              # Base entity (timestamps)
 └── main.ts                           # Application entry
 ```
 

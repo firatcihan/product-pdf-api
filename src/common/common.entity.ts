@@ -14,12 +14,6 @@ export class Common {
       return this._id.toHexString();
   }
 
-  @Prop({ type: Types.ObjectId, ref: 'Realm', required: true })
-  @Transform(ObjectIdTransform())
-  @IsObject()
-  @Expose()
-  realmId: Types.ObjectId;
-
   @Expose()
   @Prop({ type: Date, default: Date.now })
   createdAt: Date;
