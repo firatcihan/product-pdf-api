@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Expose, Transform } from 'class-transformer';
-import { IsObject } from 'class-validator';
+import { Expose } from 'class-transformer';
 import { HydratedDocument, Types } from 'mongoose';
-import { ObjectIdTransform } from '../utils/objectId.transform';
 
 export type CommonDocument = HydratedDocument<Common>;
 

@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -10,7 +11,9 @@ import {
   Patch,
   Post,
   Query,
+  SerializeOptions,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -34,6 +37,11 @@ import { ProductService } from './product.service';
 @ApiTags('Product')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
+@UseInterceptors(ClassSerializerInterceptor)
+@SerializeOptions({
+  excludePrefixes: ['_', '$'],
+  enableCircularCheck: true,
+})
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -47,7 +55,7 @@ export class ProductController {
   })
   async create(@Body() createProductDto: CreateProductDto) {
     const product = await this.productService.create(createProductDto);
-    return { result: product.toObject() };
+    return new SingleProductResponseDto(product);
   }
 
   @Get()
@@ -78,11 +86,7 @@ export class ProductController {
 
     const count = await this.productService.count(filter);
 
-    return {
-      results: products.map((p) => p.toObject()),
-      page,
-      count,
-    };
+    return new PagedProductResponseDto(products, page, count);
   }
 
   @Get(':id')
@@ -107,7 +111,7 @@ export class ProductController {
       throw new NotFoundException('Product not found');
     }
 
-    return { result: product.toObject() };
+    return new SingleProductResponseDto(product);
   }
 
   @Patch(':id')
@@ -129,7 +133,7 @@ export class ProductController {
       throw new NotFoundException('Product not found');
     }
 
-    return { result: product.toObject() };
+    return new SingleProductResponseDto(product);
   }
 
   @Delete(':id')
