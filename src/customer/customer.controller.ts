@@ -12,6 +12,7 @@ import {
   Patch,
   Post,
   Query,
+  SerializeOptions,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -38,6 +39,10 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(ClassSerializerInterceptor)
+@SerializeOptions({
+  excludePrefixes: ['_', '$'],
+  enableCircularCheck: true,
+})
 @Controller('customer')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
