@@ -104,6 +104,30 @@ export class OrderItem {
   @IsNumber()
   @Min(0)
   totalPrice: number;
+
+  @Expose()
+  @ApiProperty({
+    type: String,
+    description: 'Description title',
+    required: false,
+    example: 'Teknik Özellikler',
+  })
+  @Prop()
+  @IsString()
+  @IsOptional()
+  descriptionTitle?: string;
+
+  @Expose()
+  @ApiProperty({
+    type: String,
+    description: 'Description',
+    required: false,
+    example: 'Ergonomik tasarım, ayarlanabilir kol dayamaları',
+  })
+  @Prop()
+  @IsString()
+  @IsOptional()
+  description?: string;
 }
 
 export const OrderItemSchema = SchemaFactory.createForClass(OrderItem);

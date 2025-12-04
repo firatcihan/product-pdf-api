@@ -214,6 +214,18 @@ export class Order extends Common {
   @Expose()
   @ApiProperty({
     type: String,
+    description: 'Approved by title',
+    required: false,
+    example: 'Genel Müdür',
+  })
+  @Prop()
+  @IsString()
+  @IsOptional()
+  approvedByTitle?: string;
+
+  @Expose()
+  @ApiProperty({
+    type: String,
     description: 'Approval date (ISO format)',
     required: false,
     example: '2025-12-03T10:30:00.000Z',
